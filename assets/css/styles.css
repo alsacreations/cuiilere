@@ -1,0 +1,278 @@
+/* ----------------------------------
+ * Styles applicatifs (layers)
+ * Dépend de: reset.css, theme.css, theme-tokens.css, layouts.css
+ * Règles: n'utiliser que des variables définies dans theme.css ou theme-tokens.css
+ * ---------------------------------- */
+@layer base, components, utilities;
+
+/* ==========================================
+ * BASE LAYER - Styles généraux
+ * ========================================== */
+@layer base {
+  body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-family: var(--font-base);
+  }
+
+  /* Container principal */
+  .app-container {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: var(--spacing-m);
+  }
+
+  /* Header de l'app */
+  .app-header {
+    margin-block-end: var(--spacing-l);
+    text-align: center;
+  }
+
+  .app-header h1 {
+    margin-block-end: var(--spacing-12);
+    color: var(--primary);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .app-description {
+    color: var(--on-surface-secondary);
+    font-size: var(--text-l);
+  }
+}
+
+/* ==========================================
+ * COMPONENTS LAYER - Composants
+ * ========================================== */
+@layer components {
+  /* Layout principal en duo */
+  .app-content[data-layout="duo"] {
+    --col-min-size: 25rem;
+  }
+
+  /* Panneau de contrôles */
+  .controls-panel {
+    padding: var(--spacing-24);
+    border-radius: var(--radius-lg);
+    background-color: var(--layer-1);
+  }
+
+  /* Formulaire */
+  .qr-form {
+    --gap-m: var(--spacing-20);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .form-label {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-15);
+    color: var(--on-surface);
+  }
+
+  .form-label-inline {
+    display: block;
+    margin-block-end: var(--spacing-4);
+    font-size: var(--text-14);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .required {
+    color: var(--error);
+  }
+
+  .form-control {
+    width: 100%;
+    padding: var(--form-control-spacing);
+    border: var(--form-control-border-width) solid
+      var(--form-control-border-color);
+    border-radius: var(--form-control-border-radius);
+    background-color: var(--form-control-background);
+    color: var(--on-form-control);
+    font: inherit;
+  }
+
+  .form-control:focus {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .form-control-color {
+    width: 4rem;
+    height: 3rem;
+    padding: var(--spacing-4);
+    border: var(--form-control-border-width) solid
+      var(--form-control-border-color);
+    border-radius: var(--form-control-border-radius);
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .form-control-range {
+    width: 100%;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  .form-output {
+    padding: var(--spacing-8) var(--spacing-12);
+    border-radius: var(--radius-sm);
+    background-color: var(--layer-2);
+    font-size: var(--text-14);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+  }
+
+  .form-hint {
+    color: var(--on-surface-secondary);
+    font-size: var(--text-14);
+  }
+
+  .form-error {
+    padding: var(--spacing-12) var(--spacing-16);
+    border-left: 3px solid var(--error);
+    border-radius: var(--radius-sm);
+    background-color: oklch(from var(--error) l c h / 0.1);
+    color: var(--error);
+    font-size: var(--text-14);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .form-control[aria-invalid="true"] {
+    border-color: var(--error);
+    box-shadow: 0 0 0 1px var(--error);
+  }
+
+  .form-control-file {
+    width: 100%;
+    padding: var(--spacing-12);
+    border: var(--form-control-border-width) solid
+      var(--form-control-border-color);
+    border-radius: var(--form-control-border-radius);
+    background-color: var(--form-control-background);
+    color: var(--on-form-control);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .form-control-file:focus {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .form-control-file::file-selector-button {
+    padding: var(--spacing-8) var(--spacing-16);
+    margin-inline-end: var(--spacing-12);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background-color: var(--primary);
+    color: var(--on-primary);
+    font: inherit;
+    font-size: var(--text-14);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+  }
+
+  .form-control-file::file-selector-button:hover {
+    background-color: oklch(from var(--primary) calc(l * 0.9) c h);
+  }
+
+  .btn-remove-logo {
+    margin-block-start: var(--spacing-8);
+    padding: var(--spacing-8) var(--spacing-16);
+    border: 0;
+    gap: var(--spacing-8);
+    border-radius: var(--radius-sm);
+    background-color: var(--layer-2);
+    color: var(--error);
+    font: inherit;
+    font-size: var(--text-14);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--transition-duration);
+  }
+
+  .btn-remove-logo:hover {
+    background-color: oklch(from var(--error) l c h / 0.1);
+  }
+
+  .btn-remove-logo:focus {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .color-controls {
+    --gap-m: var(--spacing-16);
+
+    align-items: flex-end;
+  }
+
+  .color-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  /* Avertissement contraste */
+  .contrast-warning {
+    margin-block-start: var(--spacing-16);
+    padding: var(--spacing-16);
+    border-left: 4px solid var(--warning);
+    border-radius: var(--radius-md);
+    background-color: oklch(from var(--warning) l c h / 0.1);
+    color: var(--on-surface);
+    font-size: var(--text-14);
+  }
+
+  /* Panneau de prévisualisation */
+  .preview-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-24);
+    padding: var(--spacing-24);
+    border-radius: var(--radius-lg);
+    background-color: var(--layer-1);
+  }
+
+  .qr-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20rem;
+    padding: var(--spacing-24);
+    border-radius: var(--radius-md);
+    background-color: var(--layer-2);
+  }
+
+  .qr-preview:empty::before {
+    content: "Le QR code apparaîtra ici";
+    color: var(--on-surface-secondary);
+    font-style: italic;
+  }
+
+  /* Actions de téléchargement */
+  .download-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Boutons */
+  .btn {
+    gap: var(--spacing-8);
+    min-width: 10rem;
+  }
+}
+
+/* ==========================================
+ * UTILITIES LAYER - Utilitaires
+ * ========================================== */
+@layer utilities {
+  [hidden] {
+    display: none !important;
+  }
+}

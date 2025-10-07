@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuillère : Générateur de QR Code</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+    <link rel="stylesheet" href="assets/css/app.css" />
+  </head>
+  <body>
+    <main class="app-container">
+      <header class="app-header">
+        <h1>🥄 Cuillère</h1>
+        <p class="app-description">
+          Créez des QR codes personnalisés en quelques clics
+        </p>
+      </header>
+
+      <div class="app-content" data-layout="duo">
+        <!-- Panneau de configuration -->
+        <section class="controls-panel">
+          <form class="qr-form" data-layout="stack">
+            <div class="form-group">
+              <label for="url" class="form-label">
+                URL de destination
+                <span class="required" aria-label="requis">*</span>
+              </label>
+              <input
+                type="url"
+                id="url"
+                class="form-control"
+                placeholder="https://example.com"
+                value="https://alsacreations.fr"
+                required
+                aria-describedby="url-hint"
+                aria-invalid="false"
+              />
+              <small id="url-hint" class="form-hint">
+                L'URL vers laquelle le QR code redirigera. La génération est
+                automatique.
+              </small>
+              <div id="url-error" class="form-error" role="alert" hidden>
+                Veuillez saisir une URL valide (ex: https://example.com)
+              </div>
+            </div>
+
+            <fieldset class="form-group">
+              <legend class="form-label">Personnalisation des couleurs</legend>
+              <div class="color-controls" data-layout="cluster">
+                <div class="color-field">
+                  <label for="dotsColor" class="form-label-inline">
+                    Couleur des points
+                  </label>
+                  <input
+                    type="color"
+                    id="dotsColor"
+                    class="form-control-color"
+                    value="#000000"
+                  />
+                </div>
+
+                <div class="color-field">
+                  <label for="backgroundColor" class="form-label-inline">
+                    Couleur de fond
+                  </label>
+                  <input
+                    type="color"
+                    id="backgroundColor"
+                    class="form-control-color"
+                    value="#ffffff"
+                  />
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="form-group">
+              <label for="dotsType" class="form-label">
+                Style des points
+              </label>
+              <select id="dotsType" class="form-control">
+                <option value="square">Carrés</option>
+                <option value="rounded">Arrondis</option>
+                <option value="dots">Points</option>
+                <option value="classy">Élégant</option>
+                <option value="classy-rounded">Élégant arrondi</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cornersSquareType" class="form-label">
+                Style des coins
+              </label>
+              <select id="cornersSquareType" class="form-control">
+                <option value="square">Carrés</option>
+                <option value="extra-rounded">Extra arrondis</option>
+                <option value="dot">Points</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="size" class="form-label"> Taille (px) </label>
+              <input
+                type="range"
+                id="size"
+                class="form-control-range"
+                min="200"
+                max="800"
+                step="50"
+                value="400"
+              />
+              <output for="size" id="sizeOutput" class="form-output">
+                400px
+              </output>
+            </div>
+
+            <div class="form-group">
+              <label for="logo" class="form-label"> Logo (optionnel) </label>
+              <input
+                type="file"
+                id="logo"
+                class="form-control-file"
+                accept="image/png, image/jpeg, image/svg+xml"
+                aria-describedby="logo-hint"
+              />
+              <small id="logo-hint" class="form-hint">
+                Le logo sera placé au centre du QR Code. Formats acceptés : PNG,
+                JPG, SVG
+              </small>
+              <button
+                type="button"
+                class="btn-remove-logo"
+                id="removeLogo"
+                hidden
+                aria-label="Supprimer le logo"
+              >
+                <span aria-hidden="true">✕</span> Supprimer le logo
+              </button>
+            </div>
+          </form>
+
+          <div class="contrast-warning" id="contrastWarning" hidden>
+            <strong>⚠️ Attention :</strong> Le contraste entre les couleurs est
+            faible. Le QR code pourrait ne pas être scannable.
+          </div>
+        </section>
+
+        <!-- Panneau de prévisualisation -->
+        <section class="preview-panel" aria-labelledby="preview-title">
+          <h2 id="preview-title" class="visually-hidden">
+            Prévisualisation du QR Code
+          </h2>
+          <div class="qr-preview" id="qrcode"></div>
+          <div
+            id="qr-status"
+            class="visually-hidden"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></div>
+
+          <div class="download-actions" data-layout="cluster" hidden>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="app.downloadSVG()"
+            >
+              <span aria-hidden="true">⬇</span> Télécharger SVG
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="app.downloadPNG()"
+            >
+              <span aria-hidden="true">⬇</span> Télécharger PNG
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
